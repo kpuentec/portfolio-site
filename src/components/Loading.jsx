@@ -1,40 +1,38 @@
 import { useEffect, useState } from "react";
 
+export const Loading = ({ onComplete }) => {
+  const [text, setText] = useState('');
+  const fullText = "Welcome";
 
-export const Loading = ({onComplete}) => {
+  useEffect(() => {
+    let idx = 0;
+    const interval = setInterval(() => {
+      setText(fullText.substring(0, idx));
+      idx++;
 
-    const [text, setText] = useState('');
-    const fullText = "Welcome";
+      if (idx > fullText.length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          onComplete();
+        }, 1000);
+      }
+    }, 100);
 
-    useEffect(() => {
-        let idx = 0;
-        const interval = setInterval(() => {
-            setText(fullText.substring(0, idx))
-            idx++;
+    return () => clearInterval(interval);
+  }, [onComplete]);
 
-            if (idx > fullText.length) {
-                clearInterval(interval);
+  return (
+    <div className="fixed inset-0 z-50 bg-black text-white flex flex-col items-center justify-center">
+      
+      <div className="mb-4 text-4xl font-mono font-bold">
+        {text}
+        <span className="animate-blink ml-1 text-teal-400">|</span>
+      </div>
 
-                setTimeout(() => {
-                    onComplete();
-                }, 1000);
-            }
-        }, 100);
-
-        return () => clearInterval(interval);
-    }, [onComplete]);
-
-    return <div className="fixed inset-0 z-50 bg-black text-white flex flex-col items-center justify-center">
-        
-        <div className="mb-4 text-4xl font-mono font-bold">
-            {text}<span className="animate-blink ml-1">|</span>
-        </div>
-
-        <div className="w-[200px] h-[2px] bg-gray-800 rounded relative overflow-hidden">
-
-            <div className="w-[40%] h-full bg-green-500 shadow-[0_0_15#3b82f66] animate-loading-bar"></div>
-
-        </div>
+      <div className="w-[200px] h-[2px] bg-gray-800 rounded relative overflow-hidden">
+        <div className="w-[40%] h-full bg-teal-500 shadow-[0_0_15px_rgba(14,165,233,0.4)] animate-loading-bar"></div>
+      </div>
 
     </div>
-}
+  );
+};

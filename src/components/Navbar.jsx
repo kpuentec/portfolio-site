@@ -11,7 +11,7 @@ export const Navbar = ({ menu, setMenu }) => {
         <div className="flex justify-between items-center h-16">
 
           <a href="#home" className="font-mono text-xl font-bold text-white">
-            <span className="text-emerald-400">kevin</span> cortez
+            <span className="text-emerald-400">Kevin</span> Cortez
           </a>
           <div
             className="w-7 h-5 relative cursor-pointer z-40 md:hidden text-gray-400 hover:text-teal-400 transition-colors"
